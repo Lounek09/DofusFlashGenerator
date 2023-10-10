@@ -48,6 +48,19 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
                   16737792,
                   16737792,
                   16737792
+                ],
+                "b": 1,
+                "fc": [
+                  16737792,
+                  16737792,
+                  16737792,
+                  16737792
+                ],
+                "bc": [
+                  16777215,
+                  16777215,
+                  16777215,
+                  16777215
                 ]
               }
             }
