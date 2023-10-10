@@ -11,9 +11,9 @@ Before you begin, ensure you have met the following requirements:
 ### How to install and register Flash since the EOL
 Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
 
-1. ![setup_flash_1](/README_ressources/step1.png)
-2. ![setup_flash_2](/README_ressources/step2.png)
-3. ![setup_flash_3](/README_ressources/step3.png)
+![setup_flash_1](/README_ressources/step1.png)
+![setup_flash_2](/README_ressources/step2.png)
+![setup_flash_3](/README_ressources/step3.png)
 
 ## Installation
 
@@ -33,7 +33,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
           }
         ]
         ```
-        *Note: This JSON is generated from a private API. If you have your own API, replace the URL in this [line](DofusFlashGenerator/Models/MapKeys.cs#L7) before building the project.*
+        *Note: This JSON is generated from a private API. If you have your own API, replace the URL in this [line](DofusFlashGenerator/Models/MapKey.cs#L7) before building the project.*
     - Spell JSON Example :
         ```json
         {
