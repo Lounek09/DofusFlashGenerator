@@ -1,5 +1,5 @@
 # DofusFlashGenerator
-A WinForm application written in C# and using Flash to generate the maps and the spell icons from Dofus Retro.
+A WinForm application written in C# using Flash to generate the maps and the spell icons from Dofus Retro.
 
 ## Prerequisites
 
