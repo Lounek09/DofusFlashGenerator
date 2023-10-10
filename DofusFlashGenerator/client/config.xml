@@ -1,0 +1,33 @@
+<config>
+  <delay value="500" />
+  <rdelay value="3000" />
+  <rcount value="10" />
+  
+  <conf name="En ligne">
+    <dataserver url="data/" type="local" priority="3" />
+    <dataserver url="http://dofusretro.cdn.ankama.com/" priority="1" />
+  </conf>
+  
+  <cacheasbitmap>
+    <cache element="ExternalContainer/InteractionCell" value="false" />
+    <cache element="ExternalContainer/Ground" value="false" />
+    <cache element="ExternalContainer/Object1" value="false" />
+    <cache element="ExternalContainer/Object2" value="false" />
+    <cache element="ExternalContainer/Zone" value="false" />
+    <cache element="ExternalContainer/Select" value="false" />
+    <cache element="ExternalContainer/Grid" value="false" />
+    <cache element="ExternalContainer/Pointer" value="false" />
+    <cache element="GAPI/UI" value="false" />
+    <cache element="GAPI/UITop" value="false" />
+    <cache element="GAPI/Popup" value="false" />
+    <cache element="GAPI/UIUltimate" value="false" />
+    <cache element="GAPI/Cursor" value="false" />
+    <cache element="mapHandler/BACKGROUND" value="false" />
+    <cache element="mapHandler/Cell/Ground" value="false" />
+    <cache element="mapHandler/Cell/Object1" value="false" />
+    <cache element="mapHandler/Cell/Object2" value="false" />
+    <cache element="mapHandler/Cell/ObjectExternal" value="false" />
+    <cache element="Zone/Zone" value="true" />
+    <cache element="Zone/Pointers" value="true" />
+  </cacheasbitmap>
+</config>
