@@ -5,7 +5,7 @@ A WinForm application written in C# using Flash to generate the maps and the spe
 
 Before you begin, ensure you have met the following requirements:
 - **Operating System :** Windows
-- **[Visual Studio installed](https://visualstudio.microsoft.com/fr/)** installed with the **.NET desktop development** workload
+- **[Visual Studio](https://visualstudio.microsoft.com/fr/)** installed with the **.NET desktop development** workload
 - **[Clean Flash Installer](https://gitlab.com/cleanflash/installer)** installed and registered
 
 ### How to install and register Flash since the EOL
