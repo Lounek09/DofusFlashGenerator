@@ -95,7 +95,7 @@
             HelpClientLabel.Size = new Size(12, 15);
             HelpClientLabel.TabIndex = 0;
             HelpClientLabel.Text = "?";
-            ToolTip.SetToolTip(HelpClientLabel, "Add this files from the official client :\r\n    - clips/spells/icons/*\r\n    - clips/gfx/*.swf\r\n    - clips/cells.swf\r\n    - clips/ground.swf\r\n    - objects.swf\r\n    - data/maps/*.swf");
+            ToolTip.SetToolTip(HelpClientLabel, "Add this files from the official client :\r\n    - clips/spells/icons/*\r\n    - clips/gfx/*.swf\r\n    - clips/cells.swf\r\n    - clips/ground.swf\r\n    - clips/objects.swf\r\n    - data/maps/*.swf");
             // 
             // MapsLabel
             // 

@@ -5,7 +5,7 @@ A WinForm application written in C# using Flash to generate the maps and the spe
 
 Before you begin, ensure you have met the following requirements:
 - **Operating System :** Windows
-- **[.NET](https://dotnet.microsoft.com/en-us/download/dotnet)** installed
+- **[Visual Studio installed](https://visualstudio.microsoft.com/fr/)** installed with the **.NET desktop development** workload
 - **[Clean Flash Installer](https://gitlab.com/cleanflash/installer)** installed and registered
 
 ### How to install and register Flash since the EOL
@@ -18,10 +18,10 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
 ## Installation
 
 1. Clone the repository `git clone git@github.com:Lounek09/DofusFlashGenerator.git`
-3. Navigate to the project folder
-4. Build the project `dotnet build`
-5. Go to the output folder (by default `%PATH%/DofusFlashGenerator/bin/x86/Release/net7.0-windows/`)
-6. Create JSON files containing the map and spell data
+2. Open the project with Visual Studio
+3. Build the project 
+4. Go to the output folder (by default `%PROJECT_FOLDER%/DofusFlashGenerator/bin/x86/Release/net7.0-windows/`)
+5. Create JSON files containing the map and spell data
     - Map JSON Example :
         ```json
         [
@@ -68,6 +68,14 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
         }
         ```
         *Note: This JSON is generated from the lang of Dofus Retro. It may appear unconventional due to its source.*
+6. Add the listed files from the official client to the internal client :
+    - clips/spells/icons/*
+    - clips/gfx/*.swf
+    - clips/cells.swf
+    - clips/ground.swf
+    - clips/objects.swf
+    - data/maps/*.swf
+7. Run the application
 
 ## License
 Copyright (C) 2023 Lounek
