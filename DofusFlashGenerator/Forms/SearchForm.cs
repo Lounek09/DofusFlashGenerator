@@ -1,63 +1,66 @@
 ﻿using DofusFlashGenerator.Models;
 
-namespace DofusFlashGenerator.Forms
+namespace DofusFlashGenerator.Forms;
+
+public partial class SearchForm : Form
 {
-    public partial class SearchForm : Form
+    private readonly IFlashForm _owner;
+    private readonly List<IData> _data;
+
+    public SearchForm(IFlashForm owner, List<IData> data)
     {
-        private readonly IFlashForm _owner;
-        private readonly List<IData> _data;
+        InitializeComponent();
+        _owner = owner;
+        _data = data;
+    }
 
-        public SearchForm(IFlashForm owner, List<IData> data)
+    private void SearchForm_Load(object sender, EventArgs e)
+    {
+        IndexRadioButton.Checked = true;
+        NumericUpDown.Select();
+        NumericUpDown.Select(0, NumericUpDown.Text.Length);
+    }
+
+    private void RadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        var radioButton = (RadioButton)sender;
+
+        if (radioButton.Checked)
         {
-            InitializeComponent();
-            _owner = owner;
-            _data = data;
-        }
-
-        private void SearchForm_Load(object sender, EventArgs e)
-        {
-            IndexRadioButton.Checked = true;
-            NumericUpDown.Select();
-            NumericUpDown.Select(0, NumericUpDown.Text.Length);
-        }
-
-        private void RadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton = (RadioButton)sender;
-
-            if (radioButton.Checked)
+            switch (radioButton.Name)
             {
-                switch (radioButton.Name)
-                {
-                    case "IndexRadioButton":
-                        NumericUpDown.Maximum = _data.Count;
-                        break;
-                    case "IdRadioButton":
-                        NumericUpDown.Maximum = _data.Max(x => x.Id);
-                        break;
-                }
+                case "IndexRadioButton":
+                    NumericUpDown.Maximum = _data.Count;
+                    break;
+                case "IdRadioButton":
+                    NumericUpDown.Maximum = _data.Max(x => x.Id);
+                    break;
             }
         }
+    }
 
-        private void SearchButton_Click(object sender, EventArgs e)
+    private void SearchButton_Click(object sender, EventArgs e)
+    {
+        var index = -1;
+
+        if (IdRadioButton.Checked)
         {
-            int index = -1;
+            index = _data.FindIndex(x => x.Id == NumericUpDown.Value);
 
-            if (IdRadioButton.Checked)
+            if (index == -1)
             {
-                index = _data.FindIndex(x => x.Id == NumericUpDown.Value);
-
-                if (index == -1)
-                    MessageBox.Show($"Unable to find the key of for the id {NumericUpDown.Value}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Unable to find the key of for the id {NumericUpDown.Value}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (IndexRadioButton.Checked)
-                index = (int)NumericUpDown.Value - 1;
+        }
+        else if (IndexRadioButton.Checked)
+        {
+            index = (int)NumericUpDown.Value - 1;
+        }
 
-            if (index > -1)
-            {
-                _owner.Display(index);
-                Close();
-            }
+        if (index > -1)
+        {
+            _owner.Display(index);
+            Close();
         }
     }
 }

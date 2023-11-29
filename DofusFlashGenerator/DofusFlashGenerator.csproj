@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,6 +10,7 @@
     <Platforms>x86</Platforms>
     <StartupObject>DofusFlashGenerator.Program</StartupObject>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <NeutralLanguage>fr-FR</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

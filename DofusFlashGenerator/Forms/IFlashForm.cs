@@ -1,15 +1,14 @@
-﻿namespace DofusFlashGenerator.Forms
+﻿namespace DofusFlashGenerator.Forms;
+
+public interface IFlashForm
 {
-    public interface IFlashForm
-    {
-        public int Index { get; }
-        public bool IsAutoPlay { get; }
-        public bool IsAutoScreen { get; }
+    int Index { get; }
+    bool IsAutoPlay { get; }
+    bool IsAutoScreen { get; }
 
-        public Task Display(int index);
+    Task Display(int index);
 
-        public Task AutoPlay(bool enable);
+    Task AutoPlay(bool enable);
 
-        public void Screen();
-    }
+    void Screen();
 }

@@ -4,172 +4,194 @@ using DofusFlashGenerator.Utils;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace DofusFlashGenerator.Forms
+namespace DofusFlashGenerator.Forms;
+
+public sealed partial class MainForm : Form
 {
-    public sealed partial class MainForm : Form
+    private readonly HttpClient _httpClient;
+
+    private List<MapKey> _mapKeys;
+    private int _mapNumber;
+
+    private List<Spell> _spells;
+    private int _spellBackNumber;
+    private int _spellUpNumber;
+
+    public MainForm()
     {
-        private readonly HttpClient _httpClient;
+        InitializeComponent();
+        _httpClient = new();
+        _mapKeys = new();
+        _spells = new();
+    }
 
-        private int _mapNumber;
-        private List<MapKey> _mapKeys;
+    private void MainForm_Load(object sender, EventArgs e)
+    {
+        UpdateMapKeysButton.Enabled = !string.IsNullOrEmpty(MapKey.API_URL);
+        LoadMapKeys();
+        LoadSpells();
+        UpdateClient();
+    }
 
-        private List<Spell> _spells;
-        private int _spellBackNumber;
-        private int _spellUpNumber;
+    private void OpenClientFolderButton_Click(object sender, EventArgs e)
+    {
+        Process.Start("explorer.exe", Constant.CLIENT_FOLDER_PATH);
+    }
 
-        public MainForm()
+    private void UpdateClient()
+    {
+        _mapNumber = Directory.GetFiles(Constant.CLIENT_MAPS_FOLDER_PATH, "*.swf").Length;
+        MapsLabel.Text = $"Maps : {_mapNumber}";
+
+        _spellBackNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH, "*.swf").Length;
+        SpellBacksLabel.Text = $"Backs : {_spellBackNumber}";
+
+        _spellUpNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH, "*.swf").Length;
+        SpellUpsLabel.Text = $"Ups : {_spellUpNumber}";
+    }
+
+    private async void UpdateMapKeysButton_Click(object sender, EventArgs e)
+    {
+        EnabledMainButtons(false);
+
+        InformationLabel.Text = "Download of map keys...";
+
+        string json;
+        try
         {
-            InitializeComponent();
-            _httpClient = new();
-            _mapKeys = new();
-            _spells = new();
+            json = await _httpClient.GetStringAsync(MapKey.API_URL);
+        }
+        catch (HttpRequestException)
+        {
+            InformationLabel.Text = $"Error while downloading the json from {MapKey.API_URL}";
+            return;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        IEnumerable<MapKey> mapKeys;
+        try
         {
-            UpdateMapKeysButton.Enabled = !string.IsNullOrEmpty(MapKey.API_URL);
-            UpdateMapKeys();
-            UpdateSpells();
-            UpdateClient();
+            mapKeys = JsonSerializer.Deserialize<IEnumerable<MapKey>>(json) ?? [];
+        }
+        catch (JsonException)
+        {
+            InformationLabel.Text = $"Error while deserializing the json from {MapKey.API_URL}";
+            return;
         }
 
-        private void OpenClientFolderButton_Click(object sender, EventArgs e)
+        mapKeys = mapKeys.Where(x => File.Exists($"{Constant.CLIENT_MAPS_FOLDER_PATH}/{x.GetSwfFileName()}"))
+            .OrderBy(x => x.Id);
+
+        if (mapKeys.SequenceEqual(_mapKeys))
         {
-            Process.Start("explorer.exe", Constant.CLIENT_FOLDER_PATH);
+            InformationLabel.Text = "No new key detected";
+        }
+        else
+        {
+            File.WriteAllText(Constant.MAPSKEYS_FILE_PATH, JsonSerializer.Serialize(mapKeys));
+            InformationLabel.Text = "Map keys downloaded successfully";
+
+            LoadMapKeys();
         }
 
-        private void UpdateClient()
+        EnabledMainButtons(true);
+    }
+
+    private void LoadMapKeys()
+    {
+        if (!File.Exists(Constant.MAPSKEYS_FILE_PATH))
         {
-            _mapNumber = Directory.GetFiles(Constant.CLIENT_MAPS_FOLDER_PATH, "*.swf").Length;
-            MapsLabel.Text = $"Maps : {_mapNumber}";
-
-            _spellBackNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH, "*.swf").Length;
-            SpellBacksLabel.Text = $"Backs : {_spellBackNumber}";
-
-            _spellUpNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH, "*.swf").Length;
-            SpellUpsLabel.Text = $"Ups : {_spellUpNumber}";
+            return;
         }
 
-        private async void UpdateMapKeysButton_Click(object sender, EventArgs e)
+        var json = File.ReadAllText(Constant.MAPSKEYS_FILE_PATH);
+
+        _mapKeys = JsonSerializer.Deserialize<List<MapKey>>(json) ?? [];
+        MapKeysLabel.Text = $"Keys : {_mapKeys.Count}";
+    }
+
+    private void LoadSpells()
+    {
+        if (!File.Exists(Constant.SPELLS_FILE_PATH))
         {
-            EnabledMainButtons(false);
-
-            InformationLabel.Text = "Download of map keys...";
-
-            string json;
-            try
-            {
-                json = await _httpClient.GetStringAsync(MapKey.API_URL);
-            }
-            catch (HttpRequestException)
-            {
-                InformationLabel.Text = $"Error while downloading the json from {MapKey.API_URL}";
-                return;
-            }
-
-            List<MapKey> mapKeys;
-            try
-            {
-                mapKeys = Json.Load<List<MapKey>>(json);
-            }
-            catch (JsonException)
-            {
-                InformationLabel.Text = $"Error while deserializing the json from {MapKey.API_URL}";
-                return;
-            }
-
-            mapKeys = mapKeys.Where(x => File.Exists($"{Constant.CLIENT_MAPS_FOLDER_PATH}/{x.ToSwfFileName()}")).OrderBy(x => x.Id).ToList();
-
-            if (mapKeys.SequenceEqual(_mapKeys))
-                InformationLabel.Text = "No new key detected";
-            else
-            {
-                File.WriteAllText(Constant.MAPSKEYS_FILE_PATH, JsonSerializer.Serialize(mapKeys));
-                InformationLabel.Text = "Map keys downloaded successfully";
-            }
-
-            UpdateMapKeys();
-            EnabledMainButtons(true);
+            return;
         }
 
-        private void UpdateMapKeys()
-        {
-            if (!File.Exists(Constant.MAPSKEYS_FILE_PATH))
-                return;
+        var json = File.ReadAllText(Constant.SPELLS_FILE_PATH);
 
-            _mapKeys = Json.LoadFromFile<List<MapKey>>(Constant.MAPSKEYS_FILE_PATH);
-            MapKeysLabel.Text = $"Keys : {_mapKeys.Count}";
+        var element = JsonSerializer.Deserialize<JsonElement>(json);
+        _spells = JsonSerializer.Deserialize<List<Spell>>(element.GetProperty("S").GetRawText()) ?? [];
+
+        SpellsLabel.Text = $"Spells : {_spells.Count}";
+    }
+
+    private void LaunchMapsButton_Click(object sender, EventArgs e)
+    {
+        UpdateClient();
+
+        if (_mapNumber == 0)
+        {
+            InformationLabel.Text = $"There is no maps to work with in {Constant.CLIENT_MAPS_FOLDER_PATH}";
+            return;
         }
 
-        private void UpdateSpells()
+        if (_mapKeys.Count == 0)
         {
-            if (!File.Exists(Constant.SPELLS_FILE_PATH))
-                return;
-
-            JsonElement element = Json.LoadFromFile<JsonElement>(Constant.SPELLS_FILE_PATH);
-            _spells = Json.Load<List<Spell>>(element.GetProperty("S").GetRawText());
-            SpellsLabel.Text = $"Spells : {_spells.Count}";
+            InformationLabel.Text = $"There is no map keys to work with";
+            return;
         }
 
-        private void LaunchMapsButton_Click(object sender, EventArgs e)
+        EnabledMainButtons(false);
+
+        var form = new MapFlashForm(this, _mapKeys)
         {
-            UpdateClient();
+            Owner = this
+        };
 
-            if (_mapNumber == 0)
-            {
-                InformationLabel.Text = $"There is no maps to work with in {Constant.CLIENT_MAPS_FOLDER_PATH}";
-                return;
-            }
+        form.Show();
+    }
 
-            if (_mapKeys.Count == 0)
-            {
-                InformationLabel.Text = $"There is no map keys to work with";
-                return;
-            }
+    private void LaunchSpellsButton_Click(object sender, EventArgs e)
+    {
+        UpdateClient();
 
-            EnabledMainButtons(false);
-            MapFlashForm mapFlashForm = new(this, _mapKeys) { Owner = this };
-            mapFlashForm.Show();
+        if (_spellBackNumber == 0)
+        {
+            InformationLabel.Text = $"There is no spell back icons to work with in {Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH}";
+            return;
         }
 
-        private void LaunchSpellsButton_Click(object sender, EventArgs e)
+        if (_spellUpNumber == 0)
         {
-            UpdateClient();
-
-            if (_spellBackNumber == 0)
-            {
-                InformationLabel.Text = $"There is no spell back icons to work with in {Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH}";
-                return;
-            }
-
-            if (_spellUpNumber == 0)
-            {
-                InformationLabel.Text = $"There is no spell up icons to work with in {Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH}";
-                return;
-            }
-
-            if (_spells.Count == 0)
-            {
-                InformationLabel.Text = $"There is no spells to work with";
-                return;
-            }
-
-            EnabledMainButtons(false);
-            SpellFlashForm spellFlashForm = new(this, _spells) { Owner = this };
-            spellFlashForm.Show();
+            InformationLabel.Text = $"There is no spell up icons to work with in {Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH}";
+            return;
         }
 
-        private void OpenOutputFolderButton_Click(object sender, EventArgs e)
+        if (_spells.Count == 0)
         {
-            Process.Start("explorer.exe", Constant.OUTPUT_FOLDER_PATH);
+            InformationLabel.Text = $"There is no spells to work with";
+            return;
         }
 
-        public void EnabledMainButtons(bool enable)
+        EnabledMainButtons(false);
+
+        var form = new SpellFlashForm(this, _spells)
         {
-            OpenClientFolderButton.Enabled = enable;
-            UpdateMapKeysButton.Enabled = enable;
-            LaunchMapButton.Enabled = enable && _mapKeys.Count > 0;
-            LaunchSpellsButton.Enabled = enable;
-        }
+            Owner = this
+        };
+
+        form.Show();
+    }
+
+    private void OpenOutputFolderButton_Click(object sender, EventArgs e)
+    {
+        Process.Start("explorer.exe", Constant.OUTPUT_FOLDER_PATH);
+    }
+
+    public void EnabledMainButtons(bool enable)
+    {
+        OpenClientFolderButton.Enabled = enable;
+        UpdateMapKeysButton.Enabled = enable;
+        LaunchMapButton.Enabled = enable && _mapKeys.Count > 0;
+        LaunchSpellsButton.Enabled = enable;
     }
 }

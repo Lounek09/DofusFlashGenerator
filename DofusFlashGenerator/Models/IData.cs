@@ -1,7 +1,6 @@
-﻿namespace DofusFlashGenerator.Models
+﻿namespace DofusFlashGenerator.Models;
+
+public interface IData
 {
-    public interface IData
-    {
-        public int Id { get; init; }
-    }
+    public int Id { get; init; }
 }
