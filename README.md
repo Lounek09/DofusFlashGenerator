@@ -20,7 +20,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
 1. Clone the repository `git clone git@github.com:Lounek09/DofusFlashGenerator.git`
 2. Open the project with Visual Studio
 3. Build the project 
-4. Go to the output folder (by default `%PROJECT_FOLDER%/DofusFlashGenerator/bin/x86/Release/net7.0-windows/`)
+4. Go to the output folder (by default `%PROJECT_FOLDER%/DofusFlashGenerator/bin/x86/Release/net8.0-windows/`)
 5. Create JSON files containing the map and spell data
     - Map JSON Example :
         ```json
