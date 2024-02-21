@@ -5,7 +5,6 @@
   
   <conf name="En ligne">
     <dataserver url="data/" type="local" priority="3" />
-    <dataserver url="http://dofusretro.cdn.ankama.com/" priority="1" />
   </conf>
   
   <cacheasbitmap>

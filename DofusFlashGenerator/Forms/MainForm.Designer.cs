@@ -106,7 +106,7 @@
             ChangeMapApiUrlButton.Size = new Size(30, 23);
             ChangeMapApiUrlButton.TabIndex = 3;
             ChangeMapApiUrlButton.Text = "✏️";
-            ToolTip.SetToolTip(ChangeMapApiUrlButton, "Change the map API URL where the keys are recovered");
+            ToolTip.SetToolTip(ChangeMapApiUrlButton, "Change the map API URL where the keys are retrieved");
             ChangeMapApiUrlButton.UseVisualStyleBackColor = true;
             ChangeMapApiUrlButton.Click += ChangeMapApiUrlButton_Click;
             // 
