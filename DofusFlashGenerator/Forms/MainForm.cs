@@ -3,12 +3,14 @@ using DofusFlashGenerator.Utils;
 
 using System.Diagnostics;
 using System.Text.Json;
+using System.Timers;
 
 namespace DofusFlashGenerator.Forms;
 
 public sealed partial class MainForm : Form
 {
     private readonly HttpClient _httpClient;
+    private readonly System.Timers.Timer _informationTimer;
 
     private List<MapKey> _mapKeys;
     private int _mapNumber;
@@ -20,9 +22,13 @@ public sealed partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
+
         _httpClient = new();
+        _informationTimer = new(TimeSpan.FromSeconds(5));
         _mapKeys = new();
         _spells = new();
+
+        _informationTimer.Elapsed += InformationTimer_Elapsed;
     }
 
     private void MainForm_Load(object sender, EventArgs e)
@@ -31,6 +37,16 @@ public sealed partial class MainForm : Form
         LoadMapKeys();
         LoadSpells();
         UpdateClient();
+    }
+
+    private void InformationTimer_Elapsed(object? sender, ElapsedEventArgs e)
+    {
+        InformationLabel.Invoke((MethodInvoker)delegate
+        {
+            InformationLabel.Text = string.Empty;
+        });
+
+        _informationTimer.Stop();
     }
 
     private void OpenClientFolderButton_Click(object sender, EventArgs e)
