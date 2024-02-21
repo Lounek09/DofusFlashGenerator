@@ -2,5 +2,5 @@
 
 public interface IData
 {
-    public int Id { get; init; }
+    int Id { get; }
 }

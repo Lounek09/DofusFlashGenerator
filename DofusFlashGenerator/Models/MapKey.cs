@@ -4,8 +4,6 @@ namespace DofusFlashGenerator.Models;
 
 public sealed class MapKey : IData
 {
-    public const string API_URL = "";
-
     [JsonPropertyName("mapId")]
     public int Id { get; init; }
 

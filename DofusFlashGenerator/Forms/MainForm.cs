@@ -1,5 +1,5 @@
 ﻿using DofusFlashGenerator.Models;
-using DofusFlashGenerator.Utils;
+using DofusFlashGenerator.Properties;
 
 using System.Diagnostics;
 using System.Text.Json;
@@ -33,10 +33,12 @@ public sealed partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        UpdateMapKeysButton.Enabled = !string.IsNullOrEmpty(MapKey.API_URL);
         LoadMapKeys();
         LoadSpells();
         UpdateClient();
+
+        EnabledMainButtons(true);
+        DisableDownloadMapKeysButton();
     }
 
     private void InformationTimer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -66,7 +68,7 @@ public sealed partial class MainForm : Form
         SpellUpsLabel.Text = $"Ups : {_spellUpNumber}";
     }
 
-    private async void UpdateMapKeysButton_Click(object sender, EventArgs e)
+    private async void DownloadMapKeysButton_Click(object sender, EventArgs e)
     {
         EnabledMainButtons(false);
 
@@ -75,11 +77,13 @@ public sealed partial class MainForm : Form
         string json;
         try
         {
-            json = await _httpClient.GetStringAsync(MapKey.API_URL);
+            json = await _httpClient.GetStringAsync(Settings.Default.MapApiUrl);
         }
-        catch (HttpRequestException)
+        catch
         {
-            InformationLabel.Text = $"Error while downloading the json from {MapKey.API_URL}";
+            InformationLabel.Text = $"Error while downloading the json from {Settings.Default.MapApiUrl}";
+
+            EnabledMainButtons(true);
             return;
         }
 
@@ -90,7 +94,7 @@ public sealed partial class MainForm : Form
         }
         catch (JsonException)
         {
-            InformationLabel.Text = $"Error while deserializing the json from {MapKey.API_URL}";
+            InformationLabel.Text = $"Error while deserializing the json from {Settings.Default.MapApiUrl}";
             return;
         }
 
@@ -110,6 +114,38 @@ public sealed partial class MainForm : Form
         }
 
         EnabledMainButtons(true);
+    }
+
+    private void MapApiUrlTextbox_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == (char)Keys.Enter)
+        {
+            ChangeMapApiUrlButton_Click(sender, e);
+        }
+    }
+
+    private void ChangeMapApiUrlButton_Click(object sender, EventArgs e)
+    {
+        if (MapApiUrlTextbox.Visible)
+        {
+            if (!Settings.Default.MapApiUrl.Equals(MapApiUrlTextbox.Text))
+            {
+                Settings.Default.MapApiUrl = MapApiUrlTextbox.Text;
+                Settings.Default.Save();
+
+                InformationLabel.Text = "Map API URL updated successfully";
+            }
+
+            DisableDownloadMapKeysButton();
+            MapApiUrlTextbox.Visible = false;
+        }
+        else
+        {
+            MapApiUrlTextbox.Text = Settings.Default.MapApiUrl;
+
+            DisableDownloadMapKeysButton(true);
+            MapApiUrlTextbox.Visible = true;
+        }
     }
 
     private void LoadMapKeys()
@@ -198,6 +234,12 @@ public sealed partial class MainForm : Form
         form.Show();
     }
 
+    private void InformationLabel_TextChanged(object sender, EventArgs e)
+    {
+        _informationTimer.Stop();
+        _informationTimer.Start();
+    }
+
     private void OpenOutputFolderButton_Click(object sender, EventArgs e)
     {
         Process.Start("explorer.exe", Constant.OUTPUT_FOLDER_PATH);
@@ -206,8 +248,21 @@ public sealed partial class MainForm : Form
     public void EnabledMainButtons(bool enable)
     {
         OpenClientFolderButton.Enabled = enable;
-        UpdateMapKeysButton.Enabled = enable;
+        DisableDownloadMapKeysButton(!enable);
+        ChangeMapApiUrlButton.Enabled = enable;
+        MapApiUrlTextbox.Visible = false;
         LaunchMapButton.Enabled = enable && _mapKeys.Count > 0;
-        LaunchSpellsButton.Enabled = enable;
+        LaunchSpellsButton.Enabled = enable && _spells.Count > 0;
+    }
+
+    public void DisableDownloadMapKeysButton(bool force = false)
+    {
+        if (force)
+        {
+            DownloadMapKeysButton.Enabled = false;
+            return;
+        }
+
+        DownloadMapKeysButton.Enabled = !string.IsNullOrEmpty(Settings.Default.MapApiUrl);
     }
 }
