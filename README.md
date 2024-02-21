@@ -29,11 +29,11 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
             "mapId": 4,
             "date": "0706131721",
             "key": "45783f2275432c5767664069605b3f6c78614e4a4861464d28503c736165793763242532355d6f264b3f7c33796552505b505140797b73307448632a34237364702532424a6b50545e7b20415f36203c40506e634560274b253242237b4332306c7a6645393c7955705d2c3474465b493369403838752532422772355f765a4d4a342a5624234e45786e67725c6878683e5f263a4a2c2c287d70267a77296a2665372056552e7a35737442556b4d573c2f52232f554054446d227960733246",
-            "crackedKey":""
+            "crackedKey": ""
           }
         ]
         ```
-        *Note: This JSON is generated from a private API. If you have your own API, replace the URL in this [line](DofusFlashGenerator/Models/MapKey.cs#L7) before building the project.*
+        *Note: This JSON is generated from a private API. If you have your own API, you can add the url directly on the main form of the application.
     - Spell JSON Example :
         ```json
         {
@@ -78,7 +78,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
 7. Run the application
 
 ## License
-Copyright (C) 2023 Lounek
+Copyright (C) 2023-2024 Lounek
 
 
 This program is free software: you can redistribute it and/or modify
