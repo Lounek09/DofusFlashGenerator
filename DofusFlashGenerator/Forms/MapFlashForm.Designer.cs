@@ -29,18 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapFlashForm));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MapFlashForm));
             InformationLabel = new Label();
             ControlPanel = new Panel();
             CrackedPictureBox = new PictureBox();
-            SearchButton = new Button();
-            ScreenButton = new Button();
-            NextButton = new Button();
-            LastButton = new Button();
-            PreviousButton = new Button();
-            FirstButton = new Button();
-            PlayPauseButton = new Button();
             ToolTip = new ToolTip(components);
+            MediaButtonsControl = new Components.MediaButtonsControl();
             ControlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CrackedPictureBox).BeginInit();
             SuspendLayout();
@@ -48,7 +42,7 @@
             // InformationLabel
             // 
             InformationLabel.AutoSize = true;
-            InformationLabel.Font = new Font("Verdana", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            InformationLabel.Font = new Font("Verdana", 14.25F);
             InformationLabel.ForeColor = Color.White;
             InformationLabel.Location = new Point(10, 8);
             InformationLabel.Name = "InformationLabel";
@@ -58,14 +52,8 @@
             // ControlPanel
             // 
             ControlPanel.BackColor = Color.Black;
+            ControlPanel.Controls.Add(MediaButtonsControl);
             ControlPanel.Controls.Add(CrackedPictureBox);
-            ControlPanel.Controls.Add(SearchButton);
-            ControlPanel.Controls.Add(ScreenButton);
-            ControlPanel.Controls.Add(NextButton);
-            ControlPanel.Controls.Add(LastButton);
-            ControlPanel.Controls.Add(PreviousButton);
-            ControlPanel.Controls.Add(FirstButton);
-            ControlPanel.Controls.Add(PlayPauseButton);
             ControlPanel.Controls.Add(InformationLabel);
             ControlPanel.Location = new Point(0, 720);
             ControlPanel.Name = "ControlPanel";
@@ -84,103 +72,13 @@
             ToolTip.SetToolTip(CrackedPictureBox, "Cracked map");
             CrackedPictureBox.Visible = false;
             // 
-            // SearchButton
+            // MediaButtonsControl
             // 
-            SearchButton.BackgroundImage = Properties.Resources.search_disabled;
-            SearchButton.Cursor = Cursors.Hand;
-            SearchButton.Enabled = false;
-            SearchButton.FlatStyle = FlatStyle.Popup;
-            SearchButton.Location = new Point(983, 5);
-            SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(30, 30);
-            SearchButton.TabIndex = 1;
-            SearchButton.UseVisualStyleBackColor = true;
-            SearchButton.EnabledChanged += MediaButtons_EnabledChanged;
-            SearchButton.Click += MediaButtons_Click;
-            // 
-            // ScreenButton
-            // 
-            ScreenButton.BackgroundImage = Properties.Resources.camera_disabled;
-            ScreenButton.Cursor = Cursors.Hand;
-            ScreenButton.Enabled = false;
-            ScreenButton.FlatStyle = FlatStyle.Popup;
-            ScreenButton.Location = new Point(1199, 5);
-            ScreenButton.Name = "ScreenButton";
-            ScreenButton.Size = new Size(30, 30);
-            ScreenButton.TabIndex = 7;
-            ScreenButton.UseVisualStyleBackColor = true;
-            ScreenButton.EnabledChanged += MediaButtons_EnabledChanged;
-            ScreenButton.Click += MediaButtons_Click;
-            // 
-            // NextButton
-            // 
-            NextButton.BackgroundImage = Properties.Resources.next_disabled;
-            NextButton.Cursor = Cursors.Hand;
-            NextButton.Enabled = false;
-            NextButton.FlatStyle = FlatStyle.Popup;
-            NextButton.Location = new Point(1127, 5);
-            NextButton.Name = "NextButton";
-            NextButton.Size = new Size(30, 30);
-            NextButton.TabIndex = 5;
-            NextButton.UseVisualStyleBackColor = true;
-            NextButton.EnabledChanged += MediaButtons_EnabledChanged;
-            NextButton.Click += MediaButtons_Click;
-            // 
-            // LastButton
-            // 
-            LastButton.BackgroundImage = Properties.Resources.last_disabled;
-            LastButton.Cursor = Cursors.Hand;
-            LastButton.Enabled = false;
-            LastButton.FlatStyle = FlatStyle.Popup;
-            LastButton.Location = new Point(1163, 5);
-            LastButton.Name = "LastButton";
-            LastButton.Size = new Size(30, 30);
-            LastButton.TabIndex = 6;
-            LastButton.UseVisualStyleBackColor = true;
-            LastButton.EnabledChanged += MediaButtons_EnabledChanged;
-            LastButton.Click += MediaButtons_Click;
-            // 
-            // PreviousButton
-            // 
-            PreviousButton.BackgroundImage = Properties.Resources.previous_disabled;
-            PreviousButton.Cursor = Cursors.Hand;
-            PreviousButton.Enabled = false;
-            PreviousButton.FlatStyle = FlatStyle.Popup;
-            PreviousButton.Location = new Point(1055, 5);
-            PreviousButton.Name = "PreviousButton";
-            PreviousButton.Size = new Size(30, 30);
-            PreviousButton.TabIndex = 3;
-            PreviousButton.UseVisualStyleBackColor = true;
-            PreviousButton.EnabledChanged += MediaButtons_EnabledChanged;
-            PreviousButton.Click += MediaButtons_Click;
-            // 
-            // FirstButton
-            // 
-            FirstButton.BackgroundImage = Properties.Resources.first_disabled;
-            FirstButton.Cursor = Cursors.Hand;
-            FirstButton.Enabled = false;
-            FirstButton.FlatStyle = FlatStyle.Popup;
-            FirstButton.Location = new Point(1019, 5);
-            FirstButton.Name = "FirstButton";
-            FirstButton.Size = new Size(30, 30);
-            FirstButton.TabIndex = 2;
-            FirstButton.UseVisualStyleBackColor = true;
-            FirstButton.EnabledChanged += MediaButtons_EnabledChanged;
-            FirstButton.Click += MediaButtons_Click;
-            // 
-            // PlayPauseButton
-            // 
-            PlayPauseButton.BackgroundImage = Properties.Resources.playpause_disabled;
-            PlayPauseButton.Cursor = Cursors.Hand;
-            PlayPauseButton.Enabled = false;
-            PlayPauseButton.FlatStyle = FlatStyle.Popup;
-            PlayPauseButton.Location = new Point(1091, 5);
-            PlayPauseButton.Name = "PlayPauseButton";
-            PlayPauseButton.Size = new Size(30, 30);
-            PlayPauseButton.TabIndex = 4;
-            PlayPauseButton.UseVisualStyleBackColor = true;
-            PlayPauseButton.EnabledChanged += MediaButtons_EnabledChanged;
-            PlayPauseButton.Click += MediaButtons_Click;
+            MediaButtonsControl.BackColor = Color.Transparent;
+            MediaButtonsControl.Location = new Point(983, 5);
+            MediaButtonsControl.Name = "MediaButtonsControl";
+            MediaButtonsControl.Size = new Size(246, 30);
+            MediaButtonsControl.TabIndex = 9;
             // 
             // MapFlashForm
             // 
@@ -224,15 +122,9 @@
         private AxShockwaveFlashObjects.AxShockwaveFlash AxShockwaveFlash;
         private System.Windows.Forms.Label InformationLabel;
         private System.Windows.Forms.Panel ControlPanel;
-        private System.Windows.Forms.Button PlayPauseButton;
-        private System.Windows.Forms.Button NextButton;
-        private System.Windows.Forms.Button LastButton;
-        private System.Windows.Forms.Button PreviousButton;
-        private System.Windows.Forms.Button FirstButton;
-        private System.Windows.Forms.Button ScreenButton;
-        private System.Windows.Forms.Button SearchButton;
         private PictureBox CrackedPictureBox;
         private ToolTip ToolTip;
+        private Components.MediaButtonsControl MediaButtonsControl;
     }
 }
 

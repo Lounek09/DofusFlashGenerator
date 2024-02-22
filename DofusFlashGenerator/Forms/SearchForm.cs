@@ -1,17 +1,16 @@
-﻿using DofusFlashGenerator.Models;
+﻿using DofusFlashGenerator.Utils;
 
 namespace DofusFlashGenerator.Forms;
 
 public partial class SearchForm : Form
 {
     private readonly IFlashForm _owner;
-    private readonly List<IData> _data;
 
-    public SearchForm(IFlashForm owner, List<IData> data)
+    public SearchForm(IFlashForm owner)
     {
         InitializeComponent();
+
         _owner = owner;
-        _data = data;
     }
 
     private void SearchForm_Load(object sender, EventArgs e)
@@ -30,10 +29,10 @@ public partial class SearchForm : Form
             switch (radioButton.Name)
             {
                 case "IndexRadioButton":
-                    NumericUpDown.Maximum = _data.Count;
+                    NumericUpDown.Maximum = _owner.GenericData.Count;
                     break;
                 case "IdRadioButton":
-                    NumericUpDown.Maximum = _data.Max(x => x.Id);
+                    NumericUpDown.Maximum = _owner.GenericData.Max(x => x.Id);
                     break;
             }
         }
@@ -45,11 +44,12 @@ public partial class SearchForm : Form
 
         if (IdRadioButton.Checked)
         {
-            index = _data.FindIndex(x => x.Id == NumericUpDown.Value);
+            index = _owner.GenericData.FindIndex(x => x.Id == NumericUpDown.Value);
 
             if (index == -1)
             {
                 MessageBox.Show($"Unable to find the key of for the id {NumericUpDown.Value}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
         else if (IndexRadioButton.Checked)
@@ -57,10 +57,7 @@ public partial class SearchForm : Form
             index = (int)NumericUpDown.Value - 1;
         }
 
-        if (index > -1)
-        {
-            _owner.Display(index);
-            Close();
-        }
+        _owner.Display(index);
+        Close();
     }
 }
