@@ -25,7 +25,6 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
     public MapFlashForm(MainForm owner, List<MapKey> mapKeys)
     {
         InitializeComponent();
-        InitializeFlashComponent();
 
         _owner = owner;
         Data = mapKeys;

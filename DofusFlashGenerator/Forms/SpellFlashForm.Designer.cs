@@ -30,42 +30,16 @@
         {
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(SpellFlashForm));
-            ControlPanel = new Panel();
-            MediaButtonsControl = new Components.MediaButtonsControl();
-            InformationLabel = new Label();
-            ToolTip = new ToolTip(components);
             IndexLabel = new Label();
+            AxShockwaveFlash = new AxShockwaveFlashObjects.AxShockwaveFlash();
             StyleComboBox = new ComboBox();
+            ControlPanel = new Panel();
+            InformationLabel = new Label();
+            MediaButtonsControl = new Components.MediaButtonsControl();
+            ToolTip = new ToolTip(components);
+            ((System.ComponentModel.ISupportInitialize)AxShockwaveFlash).BeginInit();
             ControlPanel.SuspendLayout();
             SuspendLayout();
-            // 
-            // ControlPanel
-            // 
-            ControlPanel.BackColor = Color.Black;
-            ControlPanel.Controls.Add(MediaButtonsControl);
-            ControlPanel.Controls.Add(InformationLabel);
-            ControlPanel.Location = new Point(0, 280);
-            ControlPanel.Name = "ControlPanel";
-            ControlPanel.Size = new Size(384, 70);
-            ControlPanel.TabIndex = 1;
-            // 
-            // MediaButtonsControl
-            // 
-            MediaButtonsControl.BackColor = Color.Transparent;
-            MediaButtonsControl.Location = new Point(70, 35);
-            MediaButtonsControl.Name = "MediaButtonsControl";
-            MediaButtonsControl.Size = new Size(246, 30);
-            MediaButtonsControl.TabIndex = 1;
-            // 
-            // InformationLabel
-            // 
-            InformationLabel.Font = new Font("Verdana", 11.25F);
-            InformationLabel.ForeColor = Color.White;
-            InformationLabel.Location = new Point(10, 8);
-            InformationLabel.Name = "InformationLabel";
-            InformationLabel.Size = new Size(364, 18);
-            InformationLabel.TabIndex = 0;
-            InformationLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // IndexLabel
             // 
@@ -76,6 +50,16 @@
             IndexLabel.Name = "IndexLabel";
             IndexLabel.Size = new Size(0, 18);
             IndexLabel.TabIndex = 0;
+            // 
+            // AxShockwaveFlash
+            // 
+            AxShockwaveFlash.Enabled = true;
+            AxShockwaveFlash.Location = new Point(92, 42);
+            AxShockwaveFlash.Name = "AxShockwaveFlash";
+            AxShockwaveFlash.OcxState = (AxHost.State)resources.GetObject("AxShockwaveFlash.OcxState");
+            AxShockwaveFlash.Size = new Size(200, 200);
+            AxShockwaveFlash.TabIndex = 0;
+            AxShockwaveFlash.TabStop = false;
             // 
             // StyleComboBox
             // 
@@ -90,12 +74,41 @@
             StyleComboBox.TabIndex = 1;
             StyleComboBox.SelectedIndexChanged += StyleComboBox_SelectedIndexChanged;
             // 
+            // ControlPanel
+            // 
+            ControlPanel.BackColor = Color.Black;
+            ControlPanel.Controls.Add(InformationLabel);
+            ControlPanel.Controls.Add(MediaButtonsControl);
+            ControlPanel.Location = new Point(0, 280);
+            ControlPanel.Name = "ControlPanel";
+            ControlPanel.Size = new Size(384, 70);
+            ControlPanel.TabIndex = 0;
+            // 
+            // InformationLabel
+            // 
+            InformationLabel.Font = new Font("Verdana", 11.25F);
+            InformationLabel.ForeColor = Color.White;
+            InformationLabel.Location = new Point(10, 8);
+            InformationLabel.Name = "InformationLabel";
+            InformationLabel.Size = new Size(364, 18);
+            InformationLabel.TabIndex = 0;
+            InformationLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // MediaButtonsControl
+            // 
+            MediaButtonsControl.BackColor = Color.Transparent;
+            MediaButtonsControl.Location = new Point(70, 35);
+            MediaButtonsControl.Name = "MediaButtonsControl";
+            MediaButtonsControl.Size = new Size(246, 30);
+            MediaButtonsControl.TabIndex = 2;
+            // 
             // SpellFlashForm
             // 
             BackColor = Color.Black;
             ClientSize = new Size(384, 350);
-            Controls.Add(StyleComboBox);
             Controls.Add(IndexLabel);
+            Controls.Add(AxShockwaveFlash);
+            Controls.Add(StyleComboBox);
             Controls.Add(ControlPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -107,6 +120,7 @@
             Text = "Spell";
             FormClosed += FlashForm_FormClosed;
             Load += MainForm_Load;
+            ((System.ComponentModel.ISupportInitialize)AxShockwaveFlash).EndInit();
             ControlPanel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -114,30 +128,13 @@
 
         #endregion
 
-        private void InitializeFlashComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapFlashForm));
-            this.AxShockwaveFlash = new AxShockwaveFlashObjects.AxShockwaveFlash();
-            this.SuspendLayout();
-            //
-            // axShockwaveFlash
-            //
-            this.AxShockwaveFlash.Location = new System.Drawing.Point(92, 42);
-            this.AxShockwaveFlash.Margin = new System.Windows.Forms.Padding(0);
-            this.AxShockwaveFlash.Name = "axShockwaveFlash";
-            this.AxShockwaveFlash.OcxState = (System.Windows.Forms.AxHost.State)(resources.GetObject("axShockwaveFlash.OcxState"));
-            this.AxShockwaveFlash.Size = new System.Drawing.Size(200, 200);
-            this.Controls.Add(AxShockwaveFlash);
-            this.ResumeLayout(false);
-        }
-
-        private AxShockwaveFlashObjects.AxShockwaveFlash AxShockwaveFlash;
-        private System.Windows.Forms.Panel ControlPanel;
-        private ToolTip ToolTip;
-        private Label InformationLabel;
         private Label IndexLabel;
+        private AxShockwaveFlashObjects.AxShockwaveFlash AxShockwaveFlash;
         private ComboBox StyleComboBox;
+        private Panel ControlPanel;
+        private Label InformationLabel;
         private Components.MediaButtonsControl MediaButtonsControl;
+        private ToolTip ToolTip;
     }
 }
 

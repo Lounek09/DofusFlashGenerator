@@ -31,21 +31,21 @@
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             OpenClientFolderButton = new Button();
-            DownloadMapKeysButton = new Button();
-            LaunchMapButton = new Button();
-            OpenOutputFolderButton = new Button();
             HelpClientLabel = new Label();
-            ToolTip = new ToolTip(components);
+            MapApiUrlTextbox = new TextBox();
+            DownloadMapKeysButton = new Button();
             ChangeMapApiUrlButton = new Button();
+            LaunchMapButton = new Button();
             MapsLabel = new Label();
             MapKeysLabel = new Label();
-            InformationLabel = new Label();
+            SeparatorPanel = new Panel();
             LaunchSpellsButton = new Button();
-            SpellUpsLabel = new Label();
-            SpellBacksLabel = new Label();
-            panel1 = new Panel();
             SpellsLabel = new Label();
-            MapApiUrlTextbox = new TextBox();
+            SpellBacksLabel = new Label();
+            SpellUpsLabel = new Label();
+            InformationLabel = new Label();
+            OpenOutputFolderButton = new Button();
+            ToolTip = new ToolTip(components);
             SuspendLayout();
             // 
             // OpenClientFolderButton
@@ -58,37 +58,6 @@
             OpenClientFolderButton.UseVisualStyleBackColor = true;
             OpenClientFolderButton.Click += OpenClientFolderButton_Click;
             // 
-            // DownloadMapKeysButton
-            // 
-            DownloadMapKeysButton.Location = new Point(12, 39);
-            DownloadMapKeysButton.Name = "DownloadMapKeysButton";
-            DownloadMapKeysButton.Size = new Size(120, 23);
-            DownloadMapKeysButton.TabIndex = 2;
-            DownloadMapKeysButton.Text = "Update map keys";
-            DownloadMapKeysButton.UseVisualStyleBackColor = true;
-            DownloadMapKeysButton.Click += DownloadMapKeysButton_Click;
-            // 
-            // LaunchMapButton
-            // 
-            LaunchMapButton.Location = new Point(12, 63);
-            LaunchMapButton.Name = "LaunchMapButton";
-            LaunchMapButton.Size = new Size(150, 23);
-            LaunchMapButton.TabIndex = 4;
-            LaunchMapButton.Text = "Launch maps";
-            LaunchMapButton.UseVisualStyleBackColor = true;
-            LaunchMapButton.Click += LaunchMapsButton_Click;
-            // 
-            // OpenOutputFolderButton
-            // 
-            OpenOutputFolderButton.Font = new Font("Segoe UI", 8.25F);
-            OpenOutputFolderButton.Location = new Point(295, 223);
-            OpenOutputFolderButton.Name = "OpenOutputFolderButton";
-            OpenOutputFolderButton.Size = new Size(85, 23);
-            OpenOutputFolderButton.TabIndex = 6;
-            OpenOutputFolderButton.Text = "Open output";
-            OpenOutputFolderButton.UseVisualStyleBackColor = true;
-            OpenOutputFolderButton.Click += OpenOutputFolderButton_Click;
-            // 
             // HelpClientLabel
             // 
             HelpClientLabel.AutoSize = true;
@@ -98,6 +67,25 @@
             HelpClientLabel.TabIndex = 0;
             HelpClientLabel.Text = "?";
             ToolTip.SetToolTip(HelpClientLabel, "Add this files from the official client :\r\n    - clips/spells/icons/*\r\n    - clips/gfx/*.swf\r\n    - clips/cells.swf\r\n    - clips/ground.swf\r\n    - clips/objects.swf\r\n    - data/maps/*.swf");
+            // 
+            // MapApiUrlTextbox
+            // 
+            MapApiUrlTextbox.Location = new Point(12, 39);
+            MapApiUrlTextbox.Name = "MapApiUrlTextbox";
+            MapApiUrlTextbox.Size = new Size(120, 23);
+            MapApiUrlTextbox.TabIndex = 3;
+            MapApiUrlTextbox.Visible = false;
+            MapApiUrlTextbox.KeyPress += MapApiUrlTextbox_KeyPress;
+            // 
+            // DownloadMapKeysButton
+            // 
+            DownloadMapKeysButton.Location = new Point(12, 39);
+            DownloadMapKeysButton.Name = "DownloadMapKeysButton";
+            DownloadMapKeysButton.Size = new Size(120, 23);
+            DownloadMapKeysButton.TabIndex = 2;
+            DownloadMapKeysButton.Text = "Update map keys";
+            DownloadMapKeysButton.UseVisualStyleBackColor = true;
+            DownloadMapKeysButton.Click += DownloadMapKeysButton_Click;
             // 
             // ChangeMapApiUrlButton
             // 
@@ -109,6 +97,16 @@
             ToolTip.SetToolTip(ChangeMapApiUrlButton, "Change the map API URL where the keys are retrieved");
             ChangeMapApiUrlButton.UseVisualStyleBackColor = true;
             ChangeMapApiUrlButton.Click += ChangeMapApiUrlButton_Click;
+            // 
+            // LaunchMapButton
+            // 
+            LaunchMapButton.Location = new Point(12, 63);
+            LaunchMapButton.Name = "LaunchMapButton";
+            LaunchMapButton.Size = new Size(150, 23);
+            LaunchMapButton.TabIndex = 4;
+            LaunchMapButton.Text = "Launch maps";
+            LaunchMapButton.UseVisualStyleBackColor = true;
+            LaunchMapButton.Click += LaunchMapsButton_Click;
             // 
             // MapsLabel
             // 
@@ -130,14 +128,13 @@
             MapKeysLabel.TabIndex = 0;
             MapKeysLabel.Text = "Keys : 0";
             // 
-            // InformationLabel
+            // SeparatorPanel
             // 
-            InformationLabel.Location = new Point(20, 164);
-            InformationLabel.Name = "InformationLabel";
-            InformationLabel.Size = new Size(344, 46);
-            InformationLabel.TabIndex = 0;
-            InformationLabel.TextAlign = ContentAlignment.TopCenter;
-            InformationLabel.TextChanged += InformationLabel_TextChanged;
+            SeparatorPanel.BackColor = SystemColors.ControlDark;
+            SeparatorPanel.Location = new Point(191, 39);
+            SeparatorPanel.Name = "SeparatorPanel";
+            SeparatorPanel.Size = new Size(2, 110);
+            SeparatorPanel.TabIndex = 0;
             // 
             // LaunchSpellsButton
             // 
@@ -149,15 +146,15 @@
             LaunchSpellsButton.UseVisualStyleBackColor = true;
             LaunchSpellsButton.Click += LaunchSpellsButton_Click;
             // 
-            // SpellUpsLabel
+            // SpellsLabel
             // 
-            SpellUpsLabel.AutoSize = true;
-            SpellUpsLabel.Font = new Font("Segoe UI", 11.25F);
-            SpellUpsLabel.Location = new Point(222, 129);
-            SpellUpsLabel.Name = "SpellUpsLabel";
-            SpellUpsLabel.Size = new Size(53, 20);
-            SpellUpsLabel.TabIndex = 0;
-            SpellUpsLabel.Text = "Ups : 0";
+            SpellsLabel.AutoSize = true;
+            SpellsLabel.Font = new Font("Segoe UI", 11.25F);
+            SpellsLabel.Location = new Point(222, 89);
+            SpellsLabel.Name = "SpellsLabel";
+            SpellsLabel.Size = new Size(67, 20);
+            SpellsLabel.TabIndex = 0;
+            SpellsLabel.Text = "Spells : 0";
             // 
             // SpellBacksLabel
             // 
@@ -169,53 +166,56 @@
             SpellBacksLabel.TabIndex = 0;
             SpellBacksLabel.Text = "Backs : 0";
             // 
-            // panel1
+            // SpellUpsLabel
             // 
-            panel1.BackColor = SystemColors.ControlDark;
-            panel1.Location = new Point(191, 39);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(2, 110);
-            panel1.TabIndex = 0;
+            SpellUpsLabel.AutoSize = true;
+            SpellUpsLabel.Font = new Font("Segoe UI", 11.25F);
+            SpellUpsLabel.Location = new Point(222, 129);
+            SpellUpsLabel.Name = "SpellUpsLabel";
+            SpellUpsLabel.Size = new Size(53, 20);
+            SpellUpsLabel.TabIndex = 0;
+            SpellUpsLabel.Text = "Ups : 0";
             // 
-            // SpellsLabel
+            // InformationLabel
             // 
-            SpellsLabel.AutoSize = true;
-            SpellsLabel.Font = new Font("Segoe UI", 11.25F);
-            SpellsLabel.Location = new Point(222, 89);
-            SpellsLabel.Name = "SpellsLabel";
-            SpellsLabel.Size = new Size(67, 20);
-            SpellsLabel.TabIndex = 0;
-            SpellsLabel.Text = "Spells : 0";
+            InformationLabel.Location = new Point(20, 164);
+            InformationLabel.Name = "InformationLabel";
+            InformationLabel.Size = new Size(344, 46);
+            InformationLabel.TabIndex = 0;
+            InformationLabel.TextAlign = ContentAlignment.TopCenter;
+            InformationLabel.TextChanged += InformationLabel_TextChanged;
             // 
-            // MapApiUrlTextbox
+            // OpenOutputFolderButton
             // 
-            MapApiUrlTextbox.Location = new Point(12, 39);
-            MapApiUrlTextbox.Name = "MapApiUrlTextbox";
-            MapApiUrlTextbox.Size = new Size(120, 23);
-            MapApiUrlTextbox.TabIndex = 3;
-            MapApiUrlTextbox.Visible = false;
-            MapApiUrlTextbox.KeyPress += MapApiUrlTextbox_KeyPress;
+            OpenOutputFolderButton.Font = new Font("Segoe UI", 8.25F);
+            OpenOutputFolderButton.Location = new Point(295, 223);
+            OpenOutputFolderButton.Name = "OpenOutputFolderButton";
+            OpenOutputFolderButton.Size = new Size(85, 23);
+            OpenOutputFolderButton.TabIndex = 6;
+            OpenOutputFolderButton.Text = "Open output";
+            OpenOutputFolderButton.UseVisualStyleBackColor = true;
+            OpenOutputFolderButton.Click += OpenOutputFolderButton_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(384, 251);
-            Controls.Add(MapApiUrlTextbox);
-            Controls.Add(ChangeMapApiUrlButton);
-            Controls.Add(SpellsLabel);
-            Controls.Add(panel1);
-            Controls.Add(SpellUpsLabel);
-            Controls.Add(SpellBacksLabel);
-            Controls.Add(LaunchSpellsButton);
-            Controls.Add(InformationLabel);
-            Controls.Add(MapKeysLabel);
-            Controls.Add(MapsLabel);
-            Controls.Add(HelpClientLabel);
-            Controls.Add(OpenOutputFolderButton);
-            Controls.Add(LaunchMapButton);
-            Controls.Add(DownloadMapKeysButton);
             Controls.Add(OpenClientFolderButton);
+            Controls.Add(HelpClientLabel);
+            Controls.Add(MapApiUrlTextbox);
+            Controls.Add(DownloadMapKeysButton);
+            Controls.Add(ChangeMapApiUrlButton);
+            Controls.Add(LaunchMapButton);
+            Controls.Add(MapsLabel);
+            Controls.Add(MapKeysLabel);
+            Controls.Add(SeparatorPanel);
+            Controls.Add(LaunchSpellsButton);
+            Controls.Add(SpellsLabel);
+            Controls.Add(SpellBacksLabel);
+            Controls.Add(SpellUpsLabel);
+            Controls.Add(InformationLabel);
+            Controls.Add(OpenOutputFolderButton);
             Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -229,21 +229,22 @@
         }
 
         #endregion
+
         private Button OpenClientFolderButton;
         private Label HelpClientLabel;
+        private TextBox MapApiUrlTextbox;
         private Button DownloadMapKeysButton;
+        private Button ChangeMapApiUrlButton;
         private Button LaunchMapButton;
-        private Label InformationLabel;
         private Label MapsLabel;
         private Label MapKeysLabel;
+        private Panel SeparatorPanel;
+        private Button LaunchSpellsButton;
+        private Label SpellsLabel;
+        private Label SpellBacksLabel;
+        private Label SpellUpsLabel;
+        private Label InformationLabel;
         private Button OpenOutputFolderButton;
         private ToolTip ToolTip;
-        private Button LaunchSpellsButton;
-        private Label SpellUpsLabel;
-        private Label SpellBacksLabel;
-        private Panel panel1;
-        private Label SpellsLabel;
-        private Button ChangeMapApiUrlButton;
-        private TextBox MapApiUrlTextbox;
     }
 }

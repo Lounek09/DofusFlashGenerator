@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
-            IdRadioButton = new RadioButton();
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchForm));
             IndexRadioButton = new RadioButton();
+            IdRadioButton = new RadioButton();
             NumericUpDown = new NumericUpDown();
             SearchButton = new Button();
             ((System.ComponentModel.ISupportInitialize)NumericUpDown).BeginInit();
             SuspendLayout();
-            // 
-            // IdRadioButton
-            // 
-            IdRadioButton.AutoSize = true;
-            IdRadioButton.Location = new Point(76, 14);
-            IdRadioButton.Margin = new Padding(4, 3, 4, 3);
-            IdRadioButton.Name = "IdRadioButton";
-            IdRadioButton.Size = new Size(35, 19);
-            IdRadioButton.TabIndex = 2;
-            IdRadioButton.Text = "Id";
-            IdRadioButton.UseVisualStyleBackColor = true;
-            IdRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             // 
             // IndexRadioButton
             // 
@@ -59,6 +47,18 @@
             IndexRadioButton.Text = "Index";
             IndexRadioButton.UseVisualStyleBackColor = true;
             IndexRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            // 
+            // IdRadioButton
+            // 
+            IdRadioButton.AutoSize = true;
+            IdRadioButton.Location = new Point(76, 14);
+            IdRadioButton.Margin = new Padding(4, 3, 4, 3);
+            IdRadioButton.Name = "IdRadioButton";
+            IdRadioButton.Size = new Size(35, 19);
+            IdRadioButton.TabIndex = 2;
+            IdRadioButton.Text = "Id";
+            IdRadioButton.UseVisualStyleBackColor = true;
+            IdRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             // 
             // NumericUpDown
             // 
@@ -89,10 +89,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(125, 106);
-            Controls.Add(SearchButton);
-            Controls.Add(NumericUpDown);
             Controls.Add(IndexRadioButton);
             Controls.Add(IdRadioButton);
+            Controls.Add(NumericUpDown);
+            Controls.Add(SearchButton);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
@@ -111,9 +111,9 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton IdRadioButton;
-        private System.Windows.Forms.RadioButton IndexRadioButton;
-        private System.Windows.Forms.NumericUpDown NumericUpDown;
-        private System.Windows.Forms.Button SearchButton;
+        private RadioButton IndexRadioButton;
+        private RadioButton IdRadioButton;
+        private NumericUpDown NumericUpDown;
+        private Button SearchButton;
     }
 }

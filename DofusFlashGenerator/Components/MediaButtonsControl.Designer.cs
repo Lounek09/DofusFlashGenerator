@@ -29,12 +29,12 @@ partial class MediaButtonsControl
     private void InitializeComponent()
     {
         SearchButton = new Button();
-        ScreenButton = new Button();
+        FirstButton = new Button();
+        PreviousButton = new Button();
+        PlayPauseButton = new Button();
         NextButton = new Button();
         LastButton = new Button();
-        PreviousButton = new Button();
-        FirstButton = new Button();
-        PlayPauseButton = new Button();
+        ScreenButton = new Button();
         SuspendLayout();
         // 
         // SearchButton
@@ -51,19 +51,47 @@ partial class MediaButtonsControl
         SearchButton.EnabledChanged += MediaButton_EnabledChanged;
         SearchButton.Click += MediaButton_Click;
         // 
-        // ScreenButton
+        // FirstButton
         // 
-        ScreenButton.BackgroundImage = Properties.Resources.camera_disabled;
-        ScreenButton.Cursor = Cursors.Hand;
-        ScreenButton.Enabled = false;
-        ScreenButton.FlatStyle = FlatStyle.Popup;
-        ScreenButton.Location = new Point(216, 0);
-        ScreenButton.Name = "ScreenButton";
-        ScreenButton.Size = new Size(30, 30);
-        ScreenButton.TabIndex = 7;
-        ScreenButton.UseVisualStyleBackColor = true;
-        ScreenButton.EnabledChanged += MediaButton_EnabledChanged;
-        ScreenButton.Click += MediaButton_Click;
+        FirstButton.BackgroundImage = Properties.Resources.first_disabled;
+        FirstButton.Cursor = Cursors.Hand;
+        FirstButton.Enabled = false;
+        FirstButton.FlatStyle = FlatStyle.Popup;
+        FirstButton.Location = new Point(36, 0);
+        FirstButton.Name = "FirstButton";
+        FirstButton.Size = new Size(30, 30);
+        FirstButton.TabIndex = 2;
+        FirstButton.UseVisualStyleBackColor = true;
+        FirstButton.EnabledChanged += MediaButton_EnabledChanged;
+        FirstButton.Click += MediaButton_Click;
+        // 
+        // PreviousButton
+        // 
+        PreviousButton.BackgroundImage = Properties.Resources.previous_disabled;
+        PreviousButton.Cursor = Cursors.Hand;
+        PreviousButton.Enabled = false;
+        PreviousButton.FlatStyle = FlatStyle.Popup;
+        PreviousButton.Location = new Point(72, 0);
+        PreviousButton.Name = "PreviousButton";
+        PreviousButton.Size = new Size(30, 30);
+        PreviousButton.TabIndex = 3;
+        PreviousButton.UseVisualStyleBackColor = true;
+        PreviousButton.EnabledChanged += MediaButton_EnabledChanged;
+        PreviousButton.Click += MediaButton_Click;
+        // 
+        // PlayPauseButton
+        // 
+        PlayPauseButton.BackgroundImage = Properties.Resources.playpause_disabled;
+        PlayPauseButton.Cursor = Cursors.Hand;
+        PlayPauseButton.Enabled = false;
+        PlayPauseButton.FlatStyle = FlatStyle.Popup;
+        PlayPauseButton.Location = new Point(108, 0);
+        PlayPauseButton.Name = "PlayPauseButton";
+        PlayPauseButton.Size = new Size(30, 30);
+        PlayPauseButton.TabIndex = 4;
+        PlayPauseButton.UseVisualStyleBackColor = true;
+        PlayPauseButton.EnabledChanged += MediaButton_EnabledChanged;
+        PlayPauseButton.Click += MediaButton_Click;
         // 
         // NextButton
         // 
@@ -93,47 +121,19 @@ partial class MediaButtonsControl
         LastButton.EnabledChanged += MediaButton_EnabledChanged;
         LastButton.Click += MediaButton_Click;
         // 
-        // PreviousButton
+        // ScreenButton
         // 
-        PreviousButton.BackgroundImage = Properties.Resources.previous_disabled;
-        PreviousButton.Cursor = Cursors.Hand;
-        PreviousButton.Enabled = false;
-        PreviousButton.FlatStyle = FlatStyle.Popup;
-        PreviousButton.Location = new Point(72, 0);
-        PreviousButton.Name = "PreviousButton";
-        PreviousButton.Size = new Size(30, 30);
-        PreviousButton.TabIndex = 3;
-        PreviousButton.UseVisualStyleBackColor = true;
-        PreviousButton.EnabledChanged += MediaButton_EnabledChanged;
-        PreviousButton.Click += MediaButton_Click;
-        // 
-        // FirstButton
-        // 
-        FirstButton.BackgroundImage = Properties.Resources.first_disabled;
-        FirstButton.Cursor = Cursors.Hand;
-        FirstButton.Enabled = false;
-        FirstButton.FlatStyle = FlatStyle.Popup;
-        FirstButton.Location = new Point(36, 0);
-        FirstButton.Name = "FirstButton";
-        FirstButton.Size = new Size(30, 30);
-        FirstButton.TabIndex = 2;
-        FirstButton.UseVisualStyleBackColor = true;
-        FirstButton.EnabledChanged += MediaButton_EnabledChanged;
-        FirstButton.Click += MediaButton_Click;
-        // 
-        // PlayPauseButton
-        // 
-        PlayPauseButton.BackgroundImage = Properties.Resources.playpause_disabled;
-        PlayPauseButton.Cursor = Cursors.Hand;
-        PlayPauseButton.Enabled = false;
-        PlayPauseButton.FlatStyle = FlatStyle.Popup;
-        PlayPauseButton.Location = new Point(108, 0);
-        PlayPauseButton.Name = "PlayPauseButton";
-        PlayPauseButton.Size = new Size(30, 30);
-        PlayPauseButton.TabIndex = 4;
-        PlayPauseButton.UseVisualStyleBackColor = true;
-        PlayPauseButton.EnabledChanged += MediaButton_EnabledChanged;
-        PlayPauseButton.Click += MediaButton_Click;
+        ScreenButton.BackgroundImage = Properties.Resources.camera_disabled;
+        ScreenButton.Cursor = Cursors.Hand;
+        ScreenButton.Enabled = false;
+        ScreenButton.FlatStyle = FlatStyle.Popup;
+        ScreenButton.Location = new Point(216, 0);
+        ScreenButton.Name = "ScreenButton";
+        ScreenButton.Size = new Size(30, 30);
+        ScreenButton.TabIndex = 7;
+        ScreenButton.UseVisualStyleBackColor = true;
+        ScreenButton.EnabledChanged += MediaButton_EnabledChanged;
+        ScreenButton.Click += MediaButton_Click;
         // 
         // MediaButtonsControl
         // 
@@ -141,12 +141,12 @@ partial class MediaButtonsControl
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.Transparent;
         Controls.Add(SearchButton);
-        Controls.Add(ScreenButton);
+        Controls.Add(FirstButton);
+        Controls.Add(PreviousButton);
+        Controls.Add(PlayPauseButton);
         Controls.Add(NextButton);
         Controls.Add(LastButton);
-        Controls.Add(PreviousButton);
-        Controls.Add(FirstButton);
-        Controls.Add(PlayPauseButton);
+        Controls.Add(ScreenButton);
         Name = "MediaButtonsControl";
         Size = new Size(246, 30);
         Load += MediaButtonsControl_Load;
@@ -156,10 +156,10 @@ partial class MediaButtonsControl
     #endregion
 
     public Button SearchButton;
-    public Button ScreenButton;
+    public Button FirstButton;
+    public Button PreviousButton;
+    public Button PlayPauseButton;
     public Button NextButton;
     public Button LastButton;
-    public Button PreviousButton;
-    public Button FirstButton;
-    public Button PlayPauseButton;
+    public Button ScreenButton;
 }

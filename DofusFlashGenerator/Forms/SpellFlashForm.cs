@@ -24,7 +24,6 @@ public partial class SpellFlashForm : Form, IFlashForm<Spell>
     public SpellFlashForm(MainForm owner, List<Spell> spells)
     {
         InitializeComponent();
-        InitializeFlashComponent();
 
         _owner = owner;
         Data = spells;
