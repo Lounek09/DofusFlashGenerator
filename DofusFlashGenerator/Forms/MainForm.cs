@@ -99,7 +99,7 @@ public sealed partial class MainForm : Form
         }
 
         mapKeys = mapKeys.Where(x => File.Exists($"{Constant.CLIENT_MAPS_FOLDER_PATH}/{x.GetSwfFileName()}"))
-            .OrderBy(x => x.Id).ToList();
+            .OrderBy(x => x.Id);
 
         if (mapKeys.SequenceEqual(_mapKeys))
         {
