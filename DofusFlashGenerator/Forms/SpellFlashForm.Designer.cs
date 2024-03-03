@@ -57,7 +57,7 @@
             AxShockwaveFlash.Location = new Point(92, 42);
             AxShockwaveFlash.Name = "AxShockwaveFlash";
             AxShockwaveFlash.OcxState = (AxHost.State)resources.GetObject("AxShockwaveFlash.OcxState");
-            AxShockwaveFlash.Size = new Size(200, 200);
+            AxShockwaveFlash.Size = new Size(512, 512);
             AxShockwaveFlash.TabIndex = 0;
             AxShockwaveFlash.TabStop = false;
             // 
@@ -68,7 +68,7 @@
             StyleComboBox.ForeColor = Color.White;
             StyleComboBox.FormattingEnabled = true;
             StyleComboBox.Items.AddRange(new object[] { "Remastered", "Contrast", "Classic White", "Classic Black" });
-            StyleComboBox.Location = new Point(5, 252);
+            StyleComboBox.Location = new Point(5, 564);
             StyleComboBox.Name = "StyleComboBox";
             StyleComboBox.Size = new Size(121, 23);
             StyleComboBox.TabIndex = 1;
@@ -79,9 +79,9 @@
             ControlPanel.BackColor = Color.Black;
             ControlPanel.Controls.Add(InformationLabel);
             ControlPanel.Controls.Add(MediaButtonsControl);
-            ControlPanel.Location = new Point(0, 280);
+            ControlPanel.Location = new Point(0, 592);
             ControlPanel.Name = "ControlPanel";
-            ControlPanel.Size = new Size(384, 70);
+            ControlPanel.Size = new Size(696, 70);
             ControlPanel.TabIndex = 0;
             // 
             // InformationLabel
@@ -97,7 +97,7 @@
             // MediaButtonsControl
             // 
             MediaButtonsControl.BackColor = Color.Transparent;
-            MediaButtonsControl.Location = new Point(70, 35);
+            MediaButtonsControl.Location = new Point(226, 29);
             MediaButtonsControl.Name = "MediaButtonsControl";
             MediaButtonsControl.Size = new Size(246, 30);
             MediaButtonsControl.TabIndex = 2;
@@ -105,7 +105,7 @@
             // SpellFlashForm
             // 
             BackColor = Color.Black;
-            ClientSize = new Size(384, 350);
+            ClientSize = new Size(696, 662);
             Controls.Add(IndexLabel);
             Controls.Add(AxShockwaveFlash);
             Controls.Add(StyleComboBox);
