@@ -4,8 +4,6 @@ using DofusFlashGenerator.Models;
 using DofusFlashGenerator.Properties;
 using DofusFlashGenerator.Utils;
 
-using System.Drawing.Imaging;
-
 namespace DofusFlashGenerator.Forms;
 
 public partial class SpellFlashForm : Form, IFlashForm<Spell>
@@ -15,7 +13,6 @@ public partial class SpellFlashForm : Form, IFlashForm<Spell>
     public IReadOnlyList<Spell> Data { get; init; }
     public IReadOnlyList<IData> GenericData => Data.ToList<IData>();
     public int Index { get; private set; }
-    public int LastIndex => Data.Count - 1;
     public bool IsAutoPlay { get; private set; }
     public bool IsAutoScreen { get; private set; }
 
@@ -111,18 +108,10 @@ public partial class SpellFlashForm : Form, IFlashForm<Spell>
     {
         var spell = Data[Index];
 
-        var image = Screenshot.Window(AxShockwaveFlash.Handle);
-
-        var codec = ImageCodecInfo.GetImageEncoders()
-            .FirstOrDefault(x => x.FormatID == ImageFormat.Jpeg.Guid)!;
-
-        EncoderParameters parameters = new(1)
-        {
-            Param = new EncoderParameter[1] { new(Encoder.Quality, 100L) }
-        };
+        using var image = Screenshot.Window(AxShockwaveFlash.Handle);
 
         var path = Path.Join(Constant.OUTPUT_SPELLICONS_FOLDER_PATH, spell.Id + ".jpg");
-        image.Save(path, codec, parameters);
+        image.Save(path, ImageHelper.JpgCodec, ImageHelper.HighQualityParameters);
     }
 
     private async void StyleComboBox_SelectedIndexChanged(object sender, EventArgs e)

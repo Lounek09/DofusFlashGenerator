@@ -4,7 +4,6 @@ using DofusFlashGenerator.Models;
 using DofusFlashGenerator.Properties;
 using DofusFlashGenerator.Utils;
 
-using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 namespace DofusFlashGenerator.Forms;
@@ -127,29 +126,17 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
     {
         var mapKey = Data[Index];
 
-        var image = Screenshot.Window(AxShockwaveFlash.Handle);
-        Image cracked = Resources.cracked;
-        Image watermark = Resources.watermark;
+        using var image = Screenshot.Window(AxShockwaveFlash.Handle);
+        using var graphics = Graphics.FromImage(image);
 
-        using (var graphics = Graphics.FromImage(image))
+        graphics.DrawImage(Resources.watermark, image.Width - Resources.watermark.Width - 30, image.Height - Resources.watermark.Height - 30);
+
+        if (mapKey.IsCracked())
         {
-            graphics.DrawImage(watermark, image.Width - watermark.Width - 30, image.Height - watermark.Height - 30);
-
-            if (mapKey.IsCracked())
-            {
-                graphics.DrawImage(cracked, 5, 5);
-            }
+            graphics.DrawImage(Resources.cracked, 5, 5);
         }
 
-        var codec = ImageCodecInfo.GetImageEncoders()
-            .FirstOrDefault(x => x.FormatID == ImageFormat.Jpeg.Guid)!;
-
-        EncoderParameters parameters = new(1)
-        {
-            Param = new EncoderParameter[1] { new(Encoder.Quality, 100L) }
-        };
-
         var path = Path.Join(Constant.OUTPUT_MAPS_FOLDER_PATH, mapKey.Id + ".jpg");
-        image.Save(path, codec, parameters);
+        image.Save(path, ImageHelper.JpgCodec, ImageHelper.HighQualityParameters);
     }
 }
