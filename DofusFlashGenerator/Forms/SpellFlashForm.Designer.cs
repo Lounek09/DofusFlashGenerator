@@ -88,7 +88,7 @@
             // 
             InformationLabel.Font = new Font("Verdana", 11.25F);
             InformationLabel.ForeColor = Color.White;
-            InformationLabel.Location = new Point(10, 8);
+            InformationLabel.Location = new Point(166, 8);
             InformationLabel.Name = "InformationLabel";
             InformationLabel.Size = new Size(364, 18);
             InformationLabel.TabIndex = 0;
