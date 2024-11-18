@@ -6,7 +6,7 @@ public interface IFlashForm
 {
     IReadOnlyList<IData> GenericData { get; }
     int Index { get; }
-    int LastIndex => GenericData.Count - 1;
+    int LastIndex { get; }
     bool IsAutoPlay { get; }
     bool IsAutoScreen { get; }
 

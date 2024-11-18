@@ -178,17 +178,18 @@
             // 
             // InformationLabel
             // 
+            InformationLabel.BackColor = SystemColors.ControlLightLight;
             InformationLabel.Location = new Point(20, 164);
             InformationLabel.Name = "InformationLabel";
-            InformationLabel.Size = new Size(344, 46);
+            InformationLabel.Size = new Size(344, 61);
             InformationLabel.TabIndex = 0;
-            InformationLabel.TextAlign = ContentAlignment.TopCenter;
+            InformationLabel.TextAlign = ContentAlignment.MiddleCenter;
             InformationLabel.TextChanged += InformationLabel_TextChanged;
             // 
             // OpenOutputFolderButton
             // 
             OpenOutputFolderButton.Font = new Font("Segoe UI", 8.25F);
-            OpenOutputFolderButton.Location = new Point(295, 223);
+            OpenOutputFolderButton.Location = new Point(295, 233);
             OpenOutputFolderButton.Name = "OpenOutputFolderButton";
             OpenOutputFolderButton.Size = new Size(85, 23);
             OpenOutputFolderButton.TabIndex = 6;
@@ -200,7 +201,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(384, 251);
+            ClientSize = new Size(384, 261);
             Controls.Add(OpenClientFolderButton);
             Controls.Add(HelpClientLabel);
             Controls.Add(MapApiUrlTextbox);

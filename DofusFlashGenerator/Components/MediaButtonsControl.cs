@@ -1,6 +1,6 @@
-﻿using DofusFlashGenerator.Forms;
+﻿using DofusFlashGenerator.Extensions;
+using DofusFlashGenerator.Forms;
 using DofusFlashGenerator.Properties;
-using DofusFlashGenerator.Utils;
 
 namespace DofusFlashGenerator.Components;
 

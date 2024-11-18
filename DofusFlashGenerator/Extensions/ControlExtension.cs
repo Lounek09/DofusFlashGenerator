@@ -1,6 +1,6 @@
-﻿namespace DofusFlashGenerator.Utils;
+﻿namespace DofusFlashGenerator.Extensions;
 
-public static class ExtendControl
+public static class ControlExtension
 {
     public static T? GetNearestParentAs<T>(this Control control)
     {

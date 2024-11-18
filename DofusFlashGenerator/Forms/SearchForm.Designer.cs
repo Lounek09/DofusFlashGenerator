@@ -39,11 +39,11 @@
             // IndexRadioButton
             // 
             IndexRadioButton.AutoSize = true;
-            IndexRadioButton.Location = new Point(14, 14);
+            IndexRadioButton.Location = new Point(56, 14);
             IndexRadioButton.Margin = new Padding(4, 3, 4, 3);
             IndexRadioButton.Name = "IndexRadioButton";
             IndexRadioButton.Size = new Size(54, 19);
-            IndexRadioButton.TabIndex = 1;
+            IndexRadioButton.TabIndex = 2;
             IndexRadioButton.Text = "Index";
             IndexRadioButton.UseVisualStyleBackColor = true;
             IndexRadioButton.CheckedChanged += RadioButton_CheckedChanged;
@@ -51,11 +51,11 @@
             // IdRadioButton
             // 
             IdRadioButton.AutoSize = true;
-            IdRadioButton.Location = new Point(76, 14);
+            IdRadioButton.Location = new Point(14, 14);
             IdRadioButton.Margin = new Padding(4, 3, 4, 3);
             IdRadioButton.Name = "IdRadioButton";
             IdRadioButton.Size = new Size(35, 19);
-            IdRadioButton.TabIndex = 2;
+            IdRadioButton.TabIndex = 1;
             IdRadioButton.Text = "Id";
             IdRadioButton.UseVisualStyleBackColor = true;
             IdRadioButton.CheckedChanged += RadioButton_CheckedChanged;

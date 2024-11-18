@@ -4,19 +4,30 @@ using DofusFlashGenerator.Models;
 using DofusFlashGenerator.Properties;
 using DofusFlashGenerator.Utils;
 
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace DofusFlashGenerator.Forms;
 
 public partial class MapFlashForm : Form, IFlashForm<MapKey>
 {
-    private const int INIT_DELAY = 2500;
+    private const int INIT_DELAY = 2500; // Arbitrary delay to let the loader load the client and the first map
     private const int AUTOPLAY_DELAY = 500;
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public IReadOnlyList<MapKey> Data { get; init; }
-    public IReadOnlyList<IData> GenericData => Data.ToList<IData>();
+
+    public IReadOnlyList<IData> GenericData => Data;
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int Index { get; private set; }
+
+    public int LastIndex => Data.Count - 1;
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool IsAutoPlay { get; private set; }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool IsAutoScreen { get; private set; }
 
     private readonly MainForm _owner;
@@ -29,16 +40,16 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
         Data = mapKeys;
     }
 
-    private async void MainForm_Load(object sender, EventArgs e)
+    private async void MapFlashForm_Load(object sender, EventArgs e)
     {
-        AxShockwaveFlash.LoadMovie(0, Constant.CLIENT_LOADER_FILE_PATH);
+        AxShockwaveFlash.LoadMovie(0, Constant.Client_LoaderFilePath);
 
         await Task.Delay(INIT_DELAY);
 
         await Display(0);
     }
 
-    private void FlashForm_FormClosed(object sender, FormClosedEventArgs e)
+    private void MapFlashForm_FormClosed(object sender, FormClosedEventArgs e)
     {
         _owner.EnabledMainButtons(true);
     }
@@ -62,7 +73,7 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
         if (mapKey.IsCracked())
         {
             InformationLabel.Text += " |";
-            CrackedPictureBox.Location = new(InformationLabel.Location.X + InformationLabel.Width + 1, CrackedPictureBox.Location.Y);
+            CrackedPictureBox.Location = new Point(InformationLabel.Location.X + InformationLabel.Width + 1, CrackedPictureBox.Location.Y);
             CrackedPictureBox.Visible = true;
         }
         else
@@ -79,18 +90,13 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
                 Screen();
             }
 
-            if (Index < Data.Count - 1)
+            if (Index >= LastIndex)
             {
-                await Display(Index + 1);
+                await AutoPlay(false);
+                return;
             }
-            else
-            {
-                await AutoPlay(!IsAutoPlay);
-            }
-        }
-        else
-        {
-            MediaButtonsControl.EnableMediaButtons(true);
+
+            await Display(Index + 1);
         }
     }
 
@@ -106,8 +112,8 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
             var dialogResult = MessageBox.Show("Do you want to screen automatically each map ?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                Screen();
                 IsAutoScreen = true;
+                Screen();
             }
 
             await Display(Index + 1);
@@ -136,7 +142,7 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
             graphics.DrawImage(Resources.cracked, 5, 5);
         }
 
-        var path = Path.Join(Constant.OUTPUT_MAPS_FOLDER_PATH, mapKey.Id + ".jpg");
+        var path = Path.Join(Constant.Output_MapsFolderPath, mapKey.Id + ".jpg");
         image.Save(path, ImageHelper.JpgCodec, ImageHelper.HighQualityParameters);
     }
 }

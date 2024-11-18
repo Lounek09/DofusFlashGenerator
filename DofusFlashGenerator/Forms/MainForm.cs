@@ -38,7 +38,6 @@ public sealed partial class MainForm : Form
         UpdateClient();
 
         EnabledMainButtons(true);
-        DisableDownloadMapKeysButton();
     }
 
     private void InformationTimer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -53,18 +52,18 @@ public sealed partial class MainForm : Form
 
     private void OpenClientFolderButton_Click(object sender, EventArgs e)
     {
-        Process.Start("explorer.exe", Constant.CLIENT_FOLDER_PATH);
+        Process.Start("explorer.exe", Constant.Client_FolderPath);
     }
 
     private void UpdateClient()
     {
-        _mapNumber = Directory.GetFiles(Constant.CLIENT_MAPS_FOLDER_PATH, "*.swf").Length;
+        _mapNumber = Directory.GetFiles(Constant.Client_MapsFolderPath, "*.swf").Length;
         MapsLabel.Text = $"Maps : {_mapNumber}";
 
-        _spellBackNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH, "*.swf").Length;
+        _spellBackNumber = Directory.GetFiles(Constant.Client_SpellsIconsBackFolderPath, "*.swf").Length;
         SpellBacksLabel.Text = $"Backs : {_spellBackNumber}";
 
-        _spellUpNumber = Directory.GetFiles(Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH, "*.swf").Length;
+        _spellUpNumber = Directory.GetFiles(Constant.Client_SpellsIconsUpFolderPath, "*.swf").Length;
         SpellUpsLabel.Text = $"Ups : {_spellUpNumber}";
     }
 
@@ -98,7 +97,7 @@ public sealed partial class MainForm : Form
             return;
         }
 
-        mapKeys = mapKeys.Where(x => File.Exists($"{Constant.CLIENT_MAPS_FOLDER_PATH}/{x.GetSwfFileName()}"))
+        mapKeys = mapKeys.Where(x => File.Exists($"{Constant.Client_MapsFolderPath}/{x.GetSwfFileName()}"))
             .OrderBy(x => x.Id);
 
         if (mapKeys.SequenceEqual(_mapKeys))
@@ -107,7 +106,7 @@ public sealed partial class MainForm : Form
         }
         else
         {
-            File.WriteAllText(Constant.MAPSKEYS_FILE_PATH, JsonSerializer.Serialize(mapKeys));
+            File.WriteAllText(Constant.MapsKeyDataFilePath, JsonSerializer.Serialize(mapKeys));
             InformationLabel.Text = "Map keys downloaded successfully";
 
             LoadMapKeys();
@@ -136,26 +135,25 @@ public sealed partial class MainForm : Form
                 InformationLabel.Text = "Map API URL updated successfully";
             }
 
-            DisableDownloadMapKeysButton();
+            EnabledMainButtons(true);
             MapApiUrlTextbox.Visible = false;
         }
         else
         {
             MapApiUrlTextbox.Text = Settings.Default.MapApiUrl;
 
-            DisableDownloadMapKeysButton(true);
             MapApiUrlTextbox.Visible = true;
         }
     }
 
     private void LoadMapKeys()
     {
-        if (!File.Exists(Constant.MAPSKEYS_FILE_PATH))
+        if (!File.Exists(Constant.MapsKeyDataFilePath))
         {
             return;
         }
 
-        var json = File.ReadAllText(Constant.MAPSKEYS_FILE_PATH);
+        var json = File.ReadAllText(Constant.MapsKeyDataFilePath);
 
         _mapKeys = JsonSerializer.Deserialize<List<MapKey>>(json) ?? [];
         MapKeysLabel.Text = $"Keys : {_mapKeys.Count}";
@@ -163,12 +161,12 @@ public sealed partial class MainForm : Form
 
     private void LoadSpells()
     {
-        if (!File.Exists(Constant.SPELLS_FILE_PATH))
+        if (!File.Exists(Constant.SpellsDataFilePath))
         {
             return;
         }
 
-        var json = File.ReadAllText(Constant.SPELLS_FILE_PATH);
+        var json = File.ReadAllText(Constant.SpellsDataFilePath);
 
         var element = JsonSerializer.Deserialize<JsonElement>(json);
         _spells = JsonSerializer.Deserialize<List<Spell>>(element.GetProperty("S").GetRawText()) ?? [];
@@ -182,7 +180,7 @@ public sealed partial class MainForm : Form
 
         if (_mapNumber == 0)
         {
-            InformationLabel.Text = $"There is no maps to work with in {Constant.CLIENT_MAPS_FOLDER_PATH}";
+            InformationLabel.Text = $"There is no maps to work with in {Constant.Client_MapsFolderPath}";
             return;
         }
 
@@ -208,13 +206,13 @@ public sealed partial class MainForm : Form
 
         if (_spellBackNumber == 0)
         {
-            InformationLabel.Text = $"There is no spell back icons to work with in {Constant.CLIENT_SPELLS_ICONS_BACK_FOLDER_PATH}";
+            InformationLabel.Text = $"There is no spell back icons to work with in {Constant.Client_SpellsIconsBackFolderPath}";
             return;
         }
 
         if (_spellUpNumber == 0)
         {
-            InformationLabel.Text = $"There is no spell up icons to work with in {Constant.CLIENT_SPELLS_ICONS_UP_FOLDER_PATH}";
+            InformationLabel.Text = $"There is no spell up icons to work with in {Constant.Client_SpellsIconsUpFolderPath}";
             return;
         }
 
@@ -242,27 +240,16 @@ public sealed partial class MainForm : Form
 
     private void OpenOutputFolderButton_Click(object sender, EventArgs e)
     {
-        Process.Start("explorer.exe", Constant.OUTPUT_FOLDER_PATH);
+        Process.Start("explorer.exe", Constant.Output_FolderPath);
     }
 
     public void EnabledMainButtons(bool enable)
     {
         OpenClientFolderButton.Enabled = enable;
-        DisableDownloadMapKeysButton(!enable);
+        DownloadMapKeysButton.Enabled = enable && !string.IsNullOrEmpty(Settings.Default.MapApiUrl);
         ChangeMapApiUrlButton.Enabled = enable;
         MapApiUrlTextbox.Visible = false;
         LaunchMapButton.Enabled = enable && _mapKeys.Count > 0;
         LaunchSpellsButton.Enabled = enable && _spells.Count > 0;
-    }
-
-    public void DisableDownloadMapKeysButton(bool force = false)
-    {
-        if (force)
-        {
-            DownloadMapKeysButton.Enabled = false;
-            return;
-        }
-
-        DownloadMapKeysButton.Enabled = !string.IsNullOrEmpty(Settings.Default.MapApiUrl);
     }
 }

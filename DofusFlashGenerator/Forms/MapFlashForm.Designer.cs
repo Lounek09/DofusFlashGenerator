@@ -106,8 +106,8 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Map";
-            FormClosed += FlashForm_FormClosed;
-            Load += MainForm_Load;
+            FormClosed += MapFlashForm_FormClosed;
+            Load += MapFlashForm_Load;
             ((System.ComponentModel.ISupportInitialize)AxShockwaveFlash).EndInit();
             ControlPanel.ResumeLayout(false);
             ControlPanel.PerformLayout();

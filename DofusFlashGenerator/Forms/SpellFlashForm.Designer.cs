@@ -118,8 +118,8 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Spell";
-            FormClosed += FlashForm_FormClosed;
-            Load += MainForm_Load;
+            FormClosed += SpellFlashForm_FormClosed;
+            Load += SpellFlashForm_Load;
             ((System.ComponentModel.ISupportInitialize)AxShockwaveFlash).EndInit();
             ControlPanel.ResumeLayout(false);
             ResumeLayout(false);

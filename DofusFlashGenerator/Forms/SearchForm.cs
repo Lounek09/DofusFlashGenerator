@@ -1,4 +1,4 @@
-﻿using DofusFlashGenerator.Utils;
+﻿using DofusFlashGenerator.Extensions;
 
 namespace DofusFlashGenerator.Forms;
 
@@ -15,26 +15,26 @@ public partial class SearchForm : Form
 
     private void SearchForm_Load(object sender, EventArgs e)
     {
-        IndexRadioButton.Checked = true;
+        IdRadioButton.Checked = true;
         NumericUpDown.Select();
         NumericUpDown.Select(0, NumericUpDown.Text.Length);
     }
 
     private void RadioButton_CheckedChanged(object sender, EventArgs e)
     {
-        var radioButton = (RadioButton)sender;
+        if (sender is not RadioButton radioButton)
+        {
+            return;
+        }
 
         if (radioButton.Checked)
         {
-            switch (radioButton.Name)
+            NumericUpDown.Maximum = radioButton.Name switch
             {
-                case "IndexRadioButton":
-                    NumericUpDown.Maximum = _owner.GenericData.Count;
-                    break;
-                case "IdRadioButton":
-                    NumericUpDown.Maximum = _owner.GenericData.Max(x => x.Id);
-                    break;
-            }
+                "IndexRadioButton" => _owner.GenericData.Count,
+                "IdRadioButton" => _owner.GenericData.Max(x => x.Id),
+                _ => NumericUpDown.Maximum
+            };
         }
     }
 
@@ -45,16 +45,16 @@ public partial class SearchForm : Form
         if (IdRadioButton.Checked)
         {
             index = _owner.GenericData.FindIndex(x => x.Id == NumericUpDown.Value);
-
-            if (index == -1)
-            {
-                MessageBox.Show($"Unable to find the key of for the id {NumericUpDown.Value}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
         }
         else if (IndexRadioButton.Checked)
         {
             index = (int)NumericUpDown.Value - 1;
+        }
+
+        if (index == -1)
+        {
+            MessageBox.Show($"Unable to find the key of for the id {NumericUpDown.Value}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
 
         _owner.Display(index);

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,6 +12,7 @@
     <StartupObject>DofusFlashGenerator.Program</StartupObject>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,7 +43,7 @@
   </ItemGroup>
   
   <ItemGroup>
-	<COMReference Include="AxShockwaveFlashObjects">
+    <COMReference Include="AxShockwaveFlashObjects">
       <Guid>{D27CDB6B-AE6D-11CF-96B8-444553540000}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
