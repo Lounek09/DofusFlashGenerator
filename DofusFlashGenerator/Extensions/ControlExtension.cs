@@ -2,7 +2,7 @@
 
 public static class ControlExtension
 {
-    public static T? GetNearestParentAs<T>(this Control control)
+    public static T? GetNearestParentOfType<T>(this Control control)
     {
         if (control.Parent is T parent)
         {
@@ -14,6 +14,6 @@ public static class ControlExtension
             return default;
         }
 
-        return GetNearestParentAs<T>(control.Parent);
+        return GetNearestParentOfType<T>(control.Parent);
     }
 }

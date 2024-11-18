@@ -15,7 +15,7 @@ public partial class MediaButtonsControl : UserControl
 
     private void MediaButtonsControl_Load(object sender, EventArgs e)
     {
-        var owner = this.GetNearestParentAs<IFlashForm>()
+        var owner = this.GetNearestParentOfType<IFlashForm>()
             ?? throw new InvalidOperationException("Parent form must implement IFlashForm");
 
         _owner = owner;
@@ -28,7 +28,7 @@ public partial class MediaButtonsControl : UserControl
         switch (button.Name)
         {
             case "SearchButton":
-                SearchForm searchForm = new(_owner) { Owner = this.GetNearestParentAs<Form>()! };
+                SearchForm searchForm = new(_owner) { Owner = this.GetNearestParentOfType<Form>()! };
                 searchForm.Show();
                 break;
             case "FirstButton":
