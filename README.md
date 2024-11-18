@@ -33,7 +33,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
           }
         ]
         ```
-        *Note: This JSON is generated from a private API. If you have your own API, you can add the url directly on the main form of the application.
+        *Note: This JSON is generated from a private API. If you have your own API, you can add the url directly on the main form of the application.*
     - Spell JSON Example :
         ```json
         {
@@ -67,7 +67,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
           ]
         }
         ```
-        *Note: This JSON is generated from the lang of Dofus Retro. It may appear unconventional due to its source.*
+        *Note: This JSON is generated from the lang of Dofus Retro using [Cyberia.Langzilla](https://github.com/Lounek09/Cyberia/tree/main/Cyberia.Langzilla).*
 6. Add the listed files from the official client to the internal client :
     - clips/spells/icons/*
     - clips/gfx/*.swf
@@ -78,7 +78,7 @@ Download from [Clean Flash Installer](https://gitlab.com/cleanflash/installer)
 7. Run the application
 
 ## License
-Copyright (C) 2023-2024 Lounek
+Copyright (C) 2023-2025 Lounek
 
 
 This program is free software: you can redistribute it and/or modify
