@@ -80,7 +80,10 @@ public partial class SpellFlashForm : Form, IFlashForm<Spell>
             }
 
             await Display(Index + 1);
+            return;
         }
+
+        MediaButtonsControl.EnableMediaButtons(true);
     }
 
     public async Task AutoPlay(bool enable)

@@ -97,7 +97,10 @@ public partial class MapFlashForm : Form, IFlashForm<MapKey>
             }
 
             await Display(Index + 1);
+            return;
         }
+
+        MediaButtonsControl.EnableMediaButtons(true);
     }
 
     public async Task AutoPlay(bool enable)
