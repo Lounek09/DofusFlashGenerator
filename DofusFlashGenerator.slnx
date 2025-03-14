@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="DofusFlashGenerator/DofusFlashGenerator.csproj">
+    <Platform Project="x86" />
+  </Project>
+</Solution>
